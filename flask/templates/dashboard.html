@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>Fitbit Dashboard</h1>
+
+    <!-- Display user id -->
+    <p><strong>User ID:</strong> {{ user_id | default('') }}</p>
     
     {% if data %}
 
@@ -21,7 +24,7 @@
         <p><strong>Age:</strong> {{ data['user']['age'] | default('') }}</p>
         <p><strong>Height:</strong> {{ data['user']['height'] | default('') }} cm</p>
         <p><strong>Weight:</strong> {{ data['user']['weight'] | default('') }} kg</p>
-        
+
         <!-- Add more data as needed -->
     {% else %}
         <p>No data available. Please try reconnecting your Fitbit account.</p>

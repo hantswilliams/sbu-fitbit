@@ -60,7 +60,7 @@ def dashboard():
         print('Error: ', err)
         data = None
 
-    return render_template('dashboard.html', data=data)
+    return render_template('dashboard.html', data=data, user_id=session['user_id'])
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5005)
