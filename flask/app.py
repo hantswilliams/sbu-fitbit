@@ -43,8 +43,14 @@ def callback():
 @app.route("/dashboard")
 def dashboard():
     headers = {'Authorization': f"Bearer {session['access_token']}"}
-    profile_response = requests.get(API_BASE_URL + 'profile.json', headers=headers)
-    data = profile_response.json()
+    try:
+        profile_response = requests.get(API_BASE_URL + 'profile.json', headers=headers)
+        profile_response.raise_for_status()
+        data = profile_response.json()
+    except requests.exceptions.HTTPError as err:
+        print('Error: ', err)
+        data = None
+        
     print('Data retrieved for user: ', data)
     return render_template('dashboard.html', data=data)
 
