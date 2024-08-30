@@ -9,18 +9,24 @@
     <h1>Fitbit Dashboard</h1>
     
     {% if data %}
+
+        <!-- Print raw data in json with nicely formatted indentation -->
+        <h2>Raw Data</h2>
+        <pre>{{ data | tojson(indent=4) }}</pre>
+        
         <h2>User Profile</h2>
-        <p><strong>Name:</strong> {{ data['user']['fullName'] }}</p>
-        <p><strong>Gender:</strong> {{ data['user']['gender'] }}</p>
-        <p><strong>Age:</strong> {{ data['user']['age'] }}</p>
-        <p><strong>Height:</strong> {{ data['user']['height'] }} cm</p>
-        <p><strong>Weight:</strong> {{ data['user']['weight'] }} kg</p>
+        <!-- get user fullname, if doesnt exist, return empty string -->
+        <p><strong>Name:</strong> {{ data['user']['fullName'] | default('') }}</p>
+        <p><strong>Gender:</strong> {{ data['user']['gender'] | default('') }}</p>
+        <p><strong>Age:</strong> {{ data['user']['age'] | default('') }}</p>
+        <p><strong>Height:</strong> {{ data['user']['height'] | default('') }} cm</p>
+        <p><strong>Weight:</strong> {{ data['user']['weight'] | default('') }} kg</p>
 
         <!-- Example of additional Fitbit data -->
         <h2>Activity Data (Sample)</h2>
-        <p><strong>Steps:</strong> {{ data['activities'][0]['steps'] }}</p>
-        <p><strong>Distance:</strong> {{ data['activities'][0]['distance'] }} km</p>
-        <p><strong>Calories Burned:</strong> {{ data['activities'][0]['caloriesOut'] }} kcal</p>
+        <p><strong>Steps:</strong> {{ data['activities'][0]['steps'] | default('') }}</p>
+        <p><strong>Distance:</strong> {{ data['activities'][0]['distance'] | default('') }} km</p>
+        <p><strong>Calories Burned:</strong> {{ data['activities'][0]['caloriesOut'] | default('') }} kcal</p>
 
         <!-- Add more data as needed -->
     {% else %}

@@ -45,6 +45,7 @@ def dashboard():
     headers = {'Authorization': f"Bearer {session['access_token']}"}
     profile_response = requests.get(API_BASE_URL + 'profile.json', headers=headers)
     data = profile_response.json()
+    print('Data retrieved for user: ', data)
     return render_template('dashboard.html', data=data)
 
 if __name__ == "__main__":
