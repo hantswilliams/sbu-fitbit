@@ -13,6 +13,7 @@ CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 REDIRECT_URI = "https://fitbit-6m5burcysa-uc.a.run.app/callback"
 API_BASE_URL = "https://api.fitbit.com/1/user/-/"
+REVOKE_TOKEN_URL = "https://api.fitbit.com/oauth2/revoke"
 
 # OAuth 2.0 endpoints
 AUTHORIZATION_BASE_URL = "https://www.fitbit.com/oauth2/authorize"
@@ -43,6 +44,22 @@ def callback():
 
 @app.route("/signout")
 def signout():
+    access_token = session.get('access_token')
+    
+    if access_token:
+        # Revoke the token by making a POST request to Fitbit's revocation endpoint
+        revoke_response = requests.post(REVOKE_TOKEN_URL, data={
+            'token': access_token,
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET
+        })
+        
+        # Check if the token was successfully revoked
+        if revoke_response.status_code == 200:
+            print("Token successfully revoked.")
+        else:
+            print("Failed to revoke token. Response:", revoke_response.json())
+
     # Clear the session data
     session.clear()
     # Redirect the user to the home page
