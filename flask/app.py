@@ -38,20 +38,28 @@ def callback():
     })
     token_json = token_response.json()
     session['access_token'] = token_json['access_token']
+    session['user_id'] = token_json['user_id']     ## also save the user id
     return redirect(url_for('dashboard'))
+
+@app.route("/signout")
+def signout():
+    # Clear the session data
+    session.clear()
+    # Redirect the user to the home page
+    return redirect(url_for('index'))
 
 @app.route("/dashboard")
 def dashboard():
     headers = {'Authorization': f"Bearer {session['access_token']}"}
     try:
-        profile_response = requests.get(API_BASE_URL + 'profile.json', headers=headers)
+        profile_response = requests.get(f'https://api.fitbit.com/1/user/{session["user_id"]}/profile.json', headers=headers)
         profile_response.raise_for_status()
         data = profile_response.json()
+        print('Data retrieved for user: ', data)
     except requests.exceptions.HTTPError as err:
         print('Error: ', err)
         data = None
-        
-    print('Data retrieved for user: ', data)
+
     return render_template('dashboard.html', data=data)
 
 if __name__ == "__main__":

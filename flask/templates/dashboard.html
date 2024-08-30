@@ -21,13 +21,7 @@
         <p><strong>Age:</strong> {{ data['user']['age'] | default('') }}</p>
         <p><strong>Height:</strong> {{ data['user']['height'] | default('') }} cm</p>
         <p><strong>Weight:</strong> {{ data['user']['weight'] | default('') }} kg</p>
-
-        <!-- Example of additional Fitbit data -->
-        <h2>Activity Data (Sample)</h2>
-        <p><strong>Steps:</strong> {{ data['activities'][0]['steps'] | default('') }}</p>
-        <p><strong>Distance:</strong> {{ data['activities'][0]['distance'] | default('') }} km</p>
-        <p><strong>Calories Burned:</strong> {{ data['activities'][0]['caloriesOut'] | default('') }} kcal</p>
-
+        
         <!-- Add more data as needed -->
     {% else %}
         <p>No data available. Please try reconnecting your Fitbit account.</p>
@@ -36,5 +30,9 @@
     <a href="{{ url_for('index') }}">
         <button>Back to Home</button>
     </a>
+    <a href="{{ url_for('signout') }}">
+        <button>Sign Out</button>
+    </a>
+
 </body>
 </html>

@@ -7,9 +7,16 @@
 </head>
 <body>
     <h1>Welcome to the Fitbit Data App</h1>
-    <p>Click the button below to connect your Fitbit account and view your data.</p>
-    <a href="{{ url_for('login') }}">
-        <button>Connect to Fitbit</button>
-    </a>
+    {% if session.get('access_token') %}
+        <p>You are currently signed in. Go to your <a href="{{ url_for('dashboard') }}">dashboard</a>.</p>
+        <a href="{{ url_for('signout') }}">
+            <button>Sign Out</button>
+        </a>
+    {% else %}
+        <p>Click the button below to connect your Fitbit account and view your data.</p>
+        <a href="{{ url_for('login') }}">
+            <button>Connect to Fitbit</button>
+        </a>
+    {% endif %}
 </body>
 </html>
