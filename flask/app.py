@@ -13,6 +13,7 @@ CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 REDIRECT_URI = "https://fitbit-6m5burcysa-uc.a.run.app/callback"
 API_BASE_URL = "https://api.fitbit.com/1/user/-/"
+API_INTROSPECTION_URL = "https://api.fitbit.com//1.1/oauth2/introspect"
 REVOKE_TOKEN_URL = "https://api.fitbit.com/oauth2/revoke"
 
 # OAuth 2.0 endpoints
@@ -71,13 +72,23 @@ def dashboard():
     try:
         profile_response = requests.get(f'https://api.fitbit.com/1/user/{session["user_id"]}/profile.json', headers=headers)
         profile_response.raise_for_status()
+        profile_response_string = str(profile_response)
         data = profile_response.json()
         print('Data retrieved for user: ', data)
     except requests.exceptions.HTTPError as err:
         print('Error: ', err)
         data = None
+        profile_response_string = None
 
-    return render_template('dashboard.html', data=data, user_id=session['user_id'])
+    ## introspection
+    introspection_response = requests.post(API_INTROSPECTION_URL, headers=headers)
+    introspection_json = str(introspection_response)
+
+    return render_template('dashboard.html', 
+                           data=data, 
+                           user_id=session['user_id'], 
+                           introspection=introspection_json,
+                           profile_response=profile_response_string)
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5005)

@@ -10,6 +10,12 @@
 
     <!-- Display user id -->
     <p><strong>User ID:</strong> {{ user_id | default('') }}</p>
+
+    <!-- Display introspection raw data -->
+    <p><strong>Introspection Data:</strong> {{ introspection | default('') }}</p>
+
+    <!-- Display profile_response string -->
+    <p><strong>Profile Response:</strong> {{ profile_response | default('') }}</p>
     
     {% if data %}
 
