@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitbit Dashboard</title>
+</head>
+<body>
+    <h1>Fitbit Dashboard</h1>
+    
+    {% if data %}
+        <h2>User Profile</h2>
+        <p><strong>Name:</strong> {{ data['user']['fullName'] }}</p>
+        <p><strong>Gender:</strong> {{ data['user']['gender'] }}</p>
+        <p><strong>Age:</strong> {{ data['user']['age'] }}</p>
+        <p><strong>Height:</strong> {{ data['user']['height'] }} cm</p>
+        <p><strong>Weight:</strong> {{ data['user']['weight'] }} kg</p>
+
+        <!-- Example of additional Fitbit data -->
+        <h2>Activity Data (Sample)</h2>
+        <p><strong>Steps:</strong> {{ data['activities'][0]['steps'] }}</p>
+        <p><strong>Distance:</strong> {{ data['activities'][0]['distance'] }} km</p>
+        <p><strong>Calories Burned:</strong> {{ data['activities'][0]['caloriesOut'] }} kcal</p>
+
+        <!-- Add more data as needed -->
+    {% else %}
+        <p>No data available. Please try reconnecting your Fitbit account.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('index') }}">
+        <button>Back to Home</button>
+    </a>
+</body>
+</html>
