@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitbit Data App</title>
-</head>
-<body>
-    <h1>Welcome to the Fitbit Data App</h1>
+{% extends "base.html" %}
+
+{% block title %}Fitbit Data App{% endblock %}
+
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">Welcome to the Fitbit Data App</h1>
     {% if session.get('access_token') %}
-        <p>You are currently signed in. Go to your <a href="{{ url_for('dashboard') }}">dashboard</a>.</p>
-        <a href="{{ url_for('signout') }}">
-            <button>Sign Out</button>
+        <p class="mb-4">You are currently signed in. Go to your <a href="{{ url_for('routes.dashboard') }}" class="text-blue-500 underline">dashboard</a>.</p>
+        <a href="{{ url_for('routes.signout') }}">
+            <button class="bg-red-600 text-white py-2 px-4 rounded">Sign Out</button>
         </a>
     {% else %}
-        <p>Click the button below to connect your Fitbit account and view your data.</p>
-        <a href="{{ url_for('login') }}">
-            <button>Connect to Fitbit</button>
+        <p class="mb-4">Click the button below to connect your Fitbit account and view your data.</p>
+        <a href="{{ url_for('routes.login') }}">
+            <button class="bg-green-600 text-white py-2 px-4 rounded">Connect to Fitbit</button>
         </a>
     {% endif %}
-</body>
-</html>
+{% endblock %}
