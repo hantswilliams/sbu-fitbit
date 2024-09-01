@@ -8,7 +8,7 @@ from utils import get_activity_options  # Import the utility function
 # Fitbit API credentials
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-REDIRECT_URI = "https://20bc-24-184-254-35.ngrok-free.app/callback"
+REDIRECT_URI = "https://fitbit-6m5burcysa-uc.a.run.app/callback"
 REVOKE_TOKEN_URL = "https://api.fitbit.com/oauth2/revoke"
 TOKEN_URL = "https://api.fitbit.com/oauth2/token"
 AUTHORIZATION_BASE_URL = "https://www.fitbit.com/oauth2/authorize"
